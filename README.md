@@ -3,6 +3,14 @@
 
 Forget Me Not is a vocabulary app for storing, browsing, and reviewing words across multiple languages. Each word gets its own colour-coded card based on its grammatical type, with English and Farsi definitions shown side by side.
 
+<div align="center">
+<img height="500" alt="IMG_0856" src="https://github.com/user-attachments/assets/aaaf2b0c-7040-43b3-9838-c139c5e74623" />
+<img height="500" alt="IMG_0857" src="https://github.com/user-attachments/assets/26d83d10-321e-40f5-a045-2ea21bcf6c14" />
+    
+*Main & Add Word pages*
+</div>
+
+
 ---
 
 ## Features
