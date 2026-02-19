@@ -4,10 +4,11 @@
 Forget Me Not is a vocabulary app for storing, browsing, and reviewing words across multiple languages. Each word gets its own colour-coded card based on its grammatical type, with English and Farsi definitions shown side by side.
 
 <div align="center">
-<img height="500" alt="IMG_0856" src="https://github.com/user-attachments/assets/aaaf2b0c-7040-43b3-9838-c139c5e74623" />
+<img height="500" alt="IMG_0864" src="https://github.com/user-attachments/assets/295620ad-1ab6-40b4-9f93-ffbf0143aa37" />
 <img height="500" alt="IMG_0857" src="https://github.com/user-attachments/assets/26d83d10-321e-40f5-a045-2ea21bcf6c14" />
-    
-*Main & Add Word pages*
+<img height="500" alt="IMG_0863" src="https://github.com/user-attachments/assets/be145a8f-54f2-492c-b716-c6ba588f7d0f" />
+
+*Main & Add Word & Edit pages*
 </div>
 
 
@@ -15,13 +16,12 @@ Forget Me Not is a vocabulary app for storing, browsing, and reviewing words acr
 
 ## Features
 
-- **Add words** with word type, gender, English definition, Farsi definition, and an example sentence
-- **Colour-coded cards** — each grammatical type (noun, verb, adjective, etc.) has its own distinct pastel colour so you can scan the list at a glance
-- **Gender badges** — masculine, feminine, and neuter labels with colour indicators
-- **Edit any word** — tap a word to open its detail view, then tap Edit in the top right
-- **Delete words** — trash icon on each card with a confirmation alert
-- **Persistent storage** — words are saved locally using UserDefaults and survive app restarts
-- **Custom app icon** — a hand-generated forget-me-not flower with periwinkle blue petals and a golden centre on a deep navy background
+- Full CRUD — add, edit, delete, and view words
+- Colour-coded cards by grammatical type (noun, verb, adjective, etc.)
+- Search across words, definitions, and example sentences
+- Sort by A–Z, Type, Newest First, or Favourites First
+- Favourite words
+- Persistent local storage via UserDefaults
 
 ## Project structure
 
@@ -73,14 +73,14 @@ The icon was generated programmatically using Python and the Pillow image librar
 
 ## Possible features to add next
 
-- **Search bar** — filter words as you type
 - **Quiz mode** — show the word, tap to reveal the definition
 - **Mastery tracking** — mark words as learning / familiar / mastered
 - **Filter by type** — tap Nouns to see only nouns
-- **Sort options** — alphabetical, newest first, by type
 - **Word of the day** — one random word highlighted on the home screen
 - **Share a word** — share "lac (n.) — lake — دریاچه" as text via iOS share sheet
 - **Stats page** — word count by type, words added this week
+- **Daily push notifications** — remind users of saved words with a daily word notification
+- **SwiftData migration** — replace UserDefaults with a proper database for more robust storage
 
 ---
 
