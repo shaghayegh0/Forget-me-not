@@ -1,12 +1,49 @@
 import SwiftUI
 
+enum SortOption: String, CaseIterable {
+    case alphabetical = "A–Z"
+    case byType = "By Type"
+    case latestAdded = "Recently Added"
+    case favoritesFirst = "Favourites First"
+}
+
 struct ContentView: View {
     @EnvironmentObject private var store: WordStore
     @State private var showingAddWord = false
     @State private var wordToDelete: Word? = nil
+    
+    // to search
+    @State private var searchText = ""
+    // to have sort options
+    @State private var sortOption: SortOption = .alphabetical
+    
+    // searching in words $ EN/FA definitions
+    var filteredWords: [Word] {
+        if searchText.isEmpty {
+            return store.words
+        }
+        return store.words.filter {
+            $0.word.localizedCaseInsensitiveContains(searchText) ||
+            $0.definitionEnglish.localizedCaseInsensitiveContains(searchText) ||
+            $0.definitionFarsi.localizedCaseInsensitiveContains(searchText)
+        }
+    }
 
+    // different sort options
     var sortedWords: [Word] {
-        store.words.sorted { $0.word.lowercased() < $1.word.lowercased() }
+        switch sortOption {
+        case .alphabetical:
+            return filteredWords.sorted { $0.word.lowercased() < $1.word.lowercased() }
+        case .byType:
+            return filteredWords.sorted { $0.type.rawValue < $1.type.rawValue }
+        case .latestAdded:
+            return filteredWords.sorted { $0.dateAdded > $1.dateAdded }
+        case .favoritesFirst:
+            return filteredWords.sorted {
+                if $0.isFavorite != $1.isFavorite { return $0.isFavorite }
+                return $0.word.lowercased() < $1.word.lowercased()
+            }
+        }
     }
 
     var body: some View {
@@ -62,7 +99,34 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Forget Me Not")
+            
+            // sort options
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu {
+                        ForEach(SortOption.allCases, id: \.self) { option in
+                            Button {
+                                sortOption = option
+                            } label: {
+                                HStack {
+                                    Text(option.rawValue)
+                                    if sortOption == option {
+                                        Image(systemName: "checkmark")
+                                    }
+                                }
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "arrow.up.arrow.down")
+                            .font(.system(size: 14, weight: .semibold))
+                    }
+                }
+            }
             .navigationBarTitleDisplayMode(.large)
+            
+            // search bar (pin at the top)
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search…")
+
             .preferredColorScheme(.dark)
             .sheet(isPresented: $showingAddWord) {
                 AddWordView(store: store)
