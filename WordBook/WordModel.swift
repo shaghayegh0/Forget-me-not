@@ -28,6 +28,7 @@ struct Word: Identifiable, Codable {
     var definitionEnglish: String
     var definitionFarsi: String
     var exampleSentence: String
+    var isFavorite: Bool = false
     var dateAdded: Date = Date()
 }
 
@@ -47,6 +48,13 @@ class WordStore: ObservableObject {
         }
     }
 
+    func toggleFavorite(_ word: Word) {
+        if let idx = words.firstIndex(where: { $0.id == word.id }) {
+            words[idx].isFavorite.toggle()
+            save()
+        }
+    }    
+    
     func add(_ word: Word) {
         words.append(word)
         save()
