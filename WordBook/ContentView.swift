@@ -88,6 +88,7 @@ struct ContentView: View {
 struct WordCard: View {
     let word: Word
     let onDelete: () -> Void
+    @EnvironmentObject private var store: WordStore
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -119,6 +120,19 @@ struct WordCard: View {
 
                 Spacer()
 
+                // to save
+                Button {
+                    store.toggleFavorite(word)
+                } label: {
+                    Image(systemName: word.isFavorite ? "star.fill" : "star")
+                        .font(.system(size: 14))
+                        .foregroundColor(word.isFavorite ? typeColor(word.type).bg : .white.opacity(0.25))
+                        .padding(10)
+                        .background(Color.white.opacity(0.06))
+                        .clipShape(Circle())
+                }
+                
+                // to delete 
                 Button {
                     onDelete()
                 } label: {
@@ -193,12 +207,7 @@ struct WordCard: View {
     }
 
     func genderColor(_ gender: Gender) -> Color {
-        switch gender {
-        case .masculine: return Color(red: 0.4, green: 0.7, blue: 1.0)
-        case .feminine: return Color(red: 1.0, green: 0.5, blue: 0.7)
-        case .neuter: return Color(red: 0.7, green: 0.55, blue: 1.0)
-        case .notApplicable: return .gray
-        }
+        return typeColor(word.type).bg.opacity(0.5)
     }
 
     func typeColor(_ type: WordType) -> (bg: Color, text: Color) {
